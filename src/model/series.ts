@@ -449,7 +449,7 @@ export class Series<T extends SeriesType = SeriesType> extends PriceDataSource i
 	}
 
 	public markerDataAtIndex(index: TimePointIndex): MarkerData | null {
-		const getValue = (this._seriesType === 'Line' || this._seriesType === 'Area') &&
+		const getValue = (this._seriesType === 'Line' || this._seriesType === 'LineStyled' || this._seriesType === 'Area') &&
 			(this._options as (LineStyleOptions | AreaStyleOptions)).crosshairMarkerVisible;
 
 		if (!getValue) {
@@ -471,6 +471,7 @@ export class Series<T extends SeriesType = SeriesType> extends PriceDataSource i
 	private _markerRadius(): number {
 		switch (this._seriesType) {
 			case 'Line':
+			case 'LineStyled':
 			case 'Area':
 				return (this._options as (LineStyleOptions | AreaStyleOptions)).crosshairMarkerRadius;
 		}
