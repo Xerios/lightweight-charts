@@ -14,6 +14,7 @@ import { SeriesHistogramPaneView } from '../views/pane/histogram-pane-view';
 import { IPaneView } from '../views/pane/ipane-view';
 import { IUpdatablePaneView } from '../views/pane/iupdatable-pane-view';
 import { SeriesLinePaneView } from '../views/pane/line-pane-view';
+import { SeriesLineStyledPaneView } from '../views/pane/line-styled-pane-view';
 import { PanePriceAxisView } from '../views/pane/pane-price-axis-view';
 import { SeriesHorizontalBaseLinePaneView } from '../views/pane/series-horizontal-base-line-pane-view';
 import { SeriesPriceLinePaneView } from '../views/pane/series-price-line-pane-view';
@@ -79,6 +80,7 @@ export interface SeriesDataAtTypeMap {
 	Candlestick: BarPrices;
 	Area: BarPrice;
 	Line: BarPrice;
+	LineStyled: BarPrice;
 	Histogram: BarPrice;
 }
 
@@ -216,6 +218,11 @@ export class Series<T extends SeriesType = SeriesType> extends PriceDataSource i
 
 			case 'Line': {
 				this._paneView = new SeriesLinePaneView(this as Series<'Line'>, this.model());
+				break;
+			}
+
+			case 'LineStyled': {
+				this._paneView = new SeriesLineStyledPaneView(this as Series<'LineStyled'>, this.model());
 				break;
 			}
 

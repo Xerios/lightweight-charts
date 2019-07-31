@@ -26,9 +26,9 @@ export interface MouseEventParams {
 export type MouseEventHandler = (param: MouseEventParams) => void;
 export type TimeRangeChangeEventHandler = (timeRange: TimeRange | null) => void;
 
- /*
- * The main interface of a single chart
- */
+/*
+* The main interface of a single chart
+*/
 export interface IChartApi {
 	/**
 	 * Removes the chart object including all DOM elements. This is an irreversible operation, you cannot do anything with the chart after removing it.
@@ -77,6 +77,13 @@ export interface IChartApi {
 	 * @returns an interface of the created series
 	 */
 	addLineSeries(lineOptions?: LineSeriesPartialOptions): ISeriesApi<'Line'>;
+
+	/**
+	 * Creates a styled line series with specified parameters
+	 * @param lineOptions - customization parameters of the series being created
+	 * @returns an interface of the created series
+	 */
+	addStyledLineSeries(lineOptions?: LineSeriesPartialOptions): ISeriesApi<'LineStyled'>;
 
 	/**
 	 * Removes a series of any type. This is an irreversible operation, you cannot do anything with the series after removing it

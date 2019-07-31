@@ -46,6 +46,9 @@ export class SeriesBarColorer {
 			case 'Line':
 				return this._lineStyle(seriesOptions as LineStyleOptions);
 
+			case 'LineStyled':
+				return this._lineStyledStyle(seriesOptions as LineStyleOptions, barIndex, precomputedBars);
+
 			case 'Area':
 				return this._areaStyle(seriesOptions as AreaStyleOptions);
 
@@ -112,6 +115,19 @@ export class SeriesBarColorer {
 			...emptyResult,
 			barColor: lineStyle.color,
 		};
+	}
+
+	private _lineStyledStyle(histogramStyle: LineStyleOptions, barIndex: TimePointIndex, precomputedBars?: PrecomputedBars): BarColorerStyle {
+		const result = { ...emptyResult };
+		const currentBar = ensureNotNull(this._findBar(barIndex, precomputedBars));
+		const colorValue = currentBar.value[SeriesPlotIndex.Color];
+		if (colorValue != null) {
+			const palette = ensureNotNull(this._series.palette());
+			result.barColor = palette.colorByIndex(colorValue);
+		} else {
+			result.barColor = histogramStyle.color;
+		}
+		return result;
 	}
 
 	private _histogramStyle(histogramStyle: HistogramStyleOptions, barIndex: TimePointIndex, precomputedBars?: PrecomputedBars): BarColorerStyle {

@@ -27,6 +27,11 @@ export interface LineData {
 }
 
 /**
+ * Styled line
+ */
+export interface LineStyledData extends LineData {
+}
+/**
  * Structure describing a single item of data for histogram series
  */
 export interface HistogramData extends LineData {
@@ -50,6 +55,7 @@ export interface SeriesDataItemTypeMap {
 	Candlestick: BarData;
 	Area: LineData;
 	Line: LineData;
+	LineStyled: LineStyledData;
 	Histogram: HistogramData;
 }
 

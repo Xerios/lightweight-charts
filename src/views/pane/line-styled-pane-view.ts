@@ -4,14 +4,14 @@ import { Series } from '../../model/series';
 import { SeriesBarColorer } from '../../model/series-bar-colorer';
 import { TimePointIndex } from '../../model/time-data';
 import { IPaneRenderer } from '../../renderers/ipane-renderer';
-import { LineItem, PaneRendererLine, PaneRendererLineData } from '../../renderers/line-renderer';
+import { LineStyledItem, PaneRendererStyledLine, PaneRendererStyledLineData } from '../../renderers/line-styled-renderer';
 
 import { LinePaneViewBase } from './line-pane-view-base';
 
-export class SeriesLinePaneView extends LinePaneViewBase<'Line', LineItem> {
-	private readonly _lineRenderer: PaneRendererLine = new PaneRendererLine();
+export class SeriesLineStyledPaneView extends LinePaneViewBase<'LineStyled', LineStyledItem> {
+	private readonly _lineRenderer: PaneRendererStyledLine = new PaneRendererStyledLine();
 
-	public constructor(series: Series<'Line'>, model: ChartModel) {
+	public constructor(series: Series<'LineStyled'>, model: ChartModel) {
 		super(series, model);
 	}
 
@@ -20,7 +20,7 @@ export class SeriesLinePaneView extends LinePaneViewBase<'Line', LineItem> {
 
 		const lineStyleProps = this._series.options();
 
-		const data: PaneRendererLineData = {
+		const data: PaneRendererStyledLineData = {
 			items: this._items,
 			lineColor: lineStyleProps.color,
 			lineStyle: lineStyleProps.lineStyle,
@@ -34,7 +34,10 @@ export class SeriesLinePaneView extends LinePaneViewBase<'Line', LineItem> {
 		return this._lineRenderer;
 	}
 
-	protected _createRawItem(time: TimePointIndex, price: BarPrice, colorer: SeriesBarColorer): LineItem {
-		return this._createRawItemBase(time, price);
+	protected _createRawItem(time: TimePointIndex, price: BarPrice, colorer: SeriesBarColorer): LineStyledItem {
+		return {
+			...this._createRawItemBase2(time, price, colorer),
+			color: colorer.barStyle(time).barColor,
+		};
 	}
 }

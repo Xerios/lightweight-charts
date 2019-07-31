@@ -184,6 +184,19 @@ export class ChartApi implements IChartApi, DataUpdatesConsumer<SeriesType> {
 		return res;
 	}
 
+	public addStyledLineSeries(options: LineSeriesPartialOptions = {}): ISeriesApi<'LineStyled'> {
+		patchPriceFormat(options.priceFormat);
+
+		const strictOptions = merge(clone(seriesOptionsDefaults), lineStyleDefaults, options) as LineSeriesOptions;
+		const series = this._chartWidget.model().createSeries('LineStyled', strictOptions);
+
+		const res = new SeriesApi<'LineStyled'>(series, this);
+		this._seriesMap.set(res, series);
+		this._seriesMapReversed.set(series, res);
+
+		return res;
+	}
+
 	public removeSeries(seriesApi: ISeriesApi<SeriesType>): void {
 		const seriesObj = seriesApi as SeriesApi<SeriesType>;
 		const series = ensureDefined(this._seriesMap.get(seriesObj));

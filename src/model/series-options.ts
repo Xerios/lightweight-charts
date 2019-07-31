@@ -228,6 +228,7 @@ export interface SeriesOptionsMap {
 	Candlestick: CandlestickSeriesOptions;
 	Area: AreaSeriesOptions;
 	Line: LineSeriesOptions;
+	LineStyled: LineSeriesOptions;
 	Histogram: HistogramSeriesOptions;
 }
 
@@ -236,6 +237,7 @@ export interface SeriesPartialOptionsMap {
 	Candlestick: CandlestickSeriesPartialOptions;
 	Area: AreaSeriesPartialOptions;
 	Line: LineSeriesPartialOptions;
+	LineStyled: LineSeriesPartialOptions;
 	Histogram: HistogramSeriesPartialOptions;
 }
 

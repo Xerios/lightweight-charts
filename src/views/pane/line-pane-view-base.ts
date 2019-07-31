@@ -9,10 +9,11 @@ import { SeriesBarColorer } from '../../model/series-bar-colorer';
 import { Bar } from '../../model/series-data';
 import { TimedValue, TimePointIndex } from '../../model/time-data';
 import { TimeScale } from '../../model/time-scale';
+import { LineStyledItemBase } from '../../renderers/line-styled-renderer';
 
 import { SeriesPaneViewBase } from './series-pane-view-base';
 
-export abstract class LinePaneViewBase<TSeriesType extends 'Line' | 'Area', ItemType extends PricedValue & TimedValue> extends SeriesPaneViewBase<TSeriesType, ItemType> {
+export abstract class LinePaneViewBase<TSeriesType extends 'LineStyled' | 'Line' | 'Area', ItemType extends LineStyledItemBase> extends SeriesPaneViewBase<TSeriesType, ItemType> {
 	protected constructor(series: Series<TSeriesType>, model: ChartModel) {
 		super(series, model, true);
 	}
@@ -23,6 +24,15 @@ export abstract class LinePaneViewBase<TSeriesType extends 'Line' | 'Area', Item
 	}
 
 	protected abstract _createRawItem(time: TimePointIndex, price: BarPrice, colorer: SeriesBarColorer): ItemType;
+
+	protected _createRawItemBase2(time: TimePointIndex, price: BarPrice, colorer: SeriesBarColorer): LineStyledItemBase {
+		return {
+			time: time,
+			price: price,
+			x: NaN as Coordinate,
+			y: NaN as Coordinate,
+		};
+	}
 
 	protected _createRawItemBase(time: TimePointIndex, price: BarPrice): PricedValue & TimedValue {
 		return {
@@ -37,8 +47,12 @@ export abstract class LinePaneViewBase<TSeriesType extends 'Line' | 'Area', Item
 		const barValueGetter = this._series.barFunction();
 		const newItems: ItemType[] = [];
 		const colorer = this._series.barColorer();
+
+		// console.log(colorer.barStyle(0 as TimePointIndex).barColor)
+		// console.log(colorer.barStyle(1 as TimePointIndex).barColor)
 		this._series.bars().each((index: TimePointIndex, bar: Bar) => {
 			const value = barValueGetter(bar.value);
+			// console.log(value, bar.value)
 			const item = this._createRawItem(index, value, colorer);
 			newItems.push(item);
 			return false;
