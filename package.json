@@ -73,6 +73,7 @@
     "check-markdown-links": "node scripts/check-markdown-links.js",
     "rollup": "rollup -c rollup.config.js",
     "build": "npm-run-all tsc rollup bundle-dts",
+    "build-prod": "set NODE_ENV=production&&npm-run-all tsc rollup bundle-dts",
     "verify": "npm-run-all clean tsc-all lint check-markdown-links build test",
     "test": "mocha tests/unittests/**/*.spec.ts"
   }
