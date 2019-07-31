@@ -31,6 +31,7 @@ export const barStyleDefaults: BarStyleOptions = {
 export const lineStyleDefaults: LineStyleOptions = {
 	color: '#2196f3',
 	lineStyle: LineStyle.Solid,
+	lineType: 0,
 	lineWidth: 3,
 	crosshairMarkerVisible: true,
 	crosshairMarkerRadius: 4,

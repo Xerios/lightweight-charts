@@ -1,6 +1,6 @@
 import { DeepPartial } from '../helpers/strict-type-checks';
 
-import { LineStyle, LineWidth } from '../renderers/draw-line';
+import { LineStyle, LineType, LineWidth } from '../renderers/draw-line';
 
 import { PriceFormatterFn } from './price-formatter-fn';
 import { PriceScaleMargins } from './price-scale';
@@ -57,6 +57,7 @@ export interface BarStyleOptions {
 export interface LineStyleOptions {
 	color: string;
 	lineStyle: LineStyle;
+	lineType: LineType;
 	lineWidth: LineWidth;
 	crosshairMarkerVisible: boolean;
 	crosshairMarkerRadius: number;
