@@ -25,8 +25,8 @@ export function walkLine(
 		//  x---x---x   or   x---x   o   or   start
 		if (lineType === LineType.WithSteps) {
 			const prevX = points[i - 1].x;
-			const currX = currItem.x;
-			ctx.lineTo(prevX, currX);
+			const currY = currItem.y;
+			ctx.lineTo(prevX, currY);
 		}
 
 		ctx.lineTo(currItem.x, currItem.y);

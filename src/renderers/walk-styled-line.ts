@@ -17,7 +17,6 @@ export function walkLineStyled(
 	}
 
 	let prevColor: string | null = null;
-	// console.log(points[0])
 
 	for (let i = visibleRange.from + 1; i < visibleRange.to; ++i) {
 		const currItem = points[i];
@@ -35,9 +34,9 @@ export function walkLineStyled(
 		ctx.moveTo(prevItem.x, prevItem.y);
 		//  x---x---x   or   x---x   o   or   start
 		if (lineType === LineType.WithSteps) {
-			const prevX = points[i - 1].x;
-			const currX = currItem.x;
-			ctx.lineTo(prevX, currX);
+			const prevX = prevItem.x;
+			const currY = currItem.y;
+			ctx.lineTo(prevX, currY);
 		}
 
 		ctx.lineTo(currItem.x, currItem.y);
