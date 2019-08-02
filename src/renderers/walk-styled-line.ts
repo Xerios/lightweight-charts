@@ -34,9 +34,9 @@ export function walkLineStyled(
 		ctx.moveTo(prevItem.x, prevItem.y);
 		//  x---x---x   or   x---x   o   or   start
 		if (lineType === LineType.WithSteps) {
-			const currX = currItem.x;
-			const prevY = prevItem.y;
-			ctx.lineTo(currX, prevY);
+			const prevX = prevItem.x;
+			const currY = currItem.y;
+			ctx.lineTo(prevX, currY);
 		}
 
 		ctx.lineTo(currItem.x, currItem.y);
