@@ -395,7 +395,7 @@ export class TimeAxisWidget implements MouseEventHandlers, IDestroyable {
 	}
 
 	private _backgroundColor(): string {
-		return this._options.backgroundColor;
+		return this._options.backgroundColorTime;
 	}
 
 	private _lineColor(): string {

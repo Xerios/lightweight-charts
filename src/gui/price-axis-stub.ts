@@ -135,6 +135,6 @@ export class PriceAxisStub implements IDestroyable {
 	}
 
 	private _drawBackground(): void {
-		clearRect(this._ctx, 0, 0, this._size.w, this._size.h, this._options.layout.backgroundColor);
+		clearRect(this._ctx, 0, 0, this._size.w, this._size.h, this._options.layout.backgroundColorPrice);
 	}
 }

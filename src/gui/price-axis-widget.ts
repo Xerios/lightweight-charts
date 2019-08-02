@@ -127,7 +127,7 @@ export class PriceAxisWidget implements IDestroyable {
 	}
 
 	public backgroundColor(): string {
-		return this._options.backgroundColor;
+		return this._options.backgroundColorPrice;
 	}
 
 	public lineColor(): string {
