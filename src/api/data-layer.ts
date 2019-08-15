@@ -129,6 +129,7 @@ const seriesItemValueFnMap: SeriesItemValueFnMap = {
 	Area: getLineBasedSeriesItemValue,
 	Histogram: getLineBasedSeriesItemValue,
 	Line: getLineBasedSeriesItemValue,
+	LineStyled: getLineBasedSeriesItemValue,
 };
 
 function seriesItemValueFn(seriesType: SeriesType): TimedSeriesItemValueFn {
