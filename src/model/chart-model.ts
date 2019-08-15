@@ -373,13 +373,18 @@ export class ChartModel implements IDestroyable {
 	public setAndSaveCurrentPosition(x: Coordinate, y: Coordinate, pane: Pane): void {
 		this._crosshair.saveOriginCoord(x, y);
 		let price = NaN;
-		const index = this._timeScale.coordinateToIndex(x);
+		let index = this._timeScale.coordinateToIndex(x);
+
+		const visibleBars = this._timeScale.visibleBars();
+		if (visibleBars !== null) {
+			index = Math.min(Math.max(visibleBars.firstBar(), index), visibleBars.lastBar()) as TimePointIndex;
+		}
 
 		const mainSource = pane.mainDataSource();
 		if (mainSource !== null) {
 			const priceScale = pane.defaultPriceScale();
-			if (!priceScale.isEmpty()) {
-				const firstValue = ensureNotNull(mainSource.firstValue());
+			const firstValue = priceScale.firstValue();
+			if (firstValue !== null) {
 				price = priceScale.coordinateToPrice(y, firstValue);
 			}
 			price = this._magnet.align(price, index, pane);
@@ -514,7 +519,14 @@ export class ChartModel implements IDestroyable {
 		const pane = this._panes[0];
 		const series = this._createSeries(options, seriesType, pane);
 		this._serieses.push(series);
-		this.lightUpdate();
+
+		if (this._serieses.length === 1) {
+			// call fullUpdate to recalculate chart's parts geometry
+			this.fullUpdate();
+		} else {
+			this.lightUpdate();
+		}
+
 		return series;
 	}
 
